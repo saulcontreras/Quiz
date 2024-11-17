@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <style type="text/tailwindcss">
+        html {
+            font-family: "Inter", sans-serif;
+            font-optical-sizing: auto;
+        }
+    </style>
+</head>
+
+<body class="container mx-auto flex flex-col gap-5 max-w-96">
+
+
+
+    <section id="status-bar" class="px-6 w-full mt-3">
+        <div class="flex justify-between mb-3 text-xs text-[#14e086]">
+            <span class="w-full text-left"><b>10%</b> completado</span>
+        </div>
+        <div class="bg-gray-300 h-[2px] w-full rounded-full relative">
+            <span class="bg-[#14e086] h-[16px] w-[16px] absolute top-0 -ml-2 -mt-[7px] z-10 rounded-full cursor-pointer"
+                style="left:10%"></span>
+            <span class="bg-[#14e086] h-[2px] absolute left-0 top-0 rounded-full" style="width:10%"></span>
+        </div>
+    </section>
+
+    <section id="questions" class="w-full flex items-center gap-4">
+        <div class="w-28 h-16 rounded-r-full bg-[#f5b0a5] flex items-center justify-end pr-8">
+            <span class="text-white font-extrabold text-3xl">1</span>
+        </div>
+        <p class="text-[#5d538e] text-base font-light">
+            <b class="font-semibold">Esgoje 3 aspectos</b> que <br />
+            quisieras <b class="font-semibold">mejorar</b> sobre tu <br />
+            <b class="font-semibold">salud o estilo</b> de vida:
+        </p>
+    </section>
+
+
+    <section id="options" class="flex flex-col gap-10">
+
+        <div class="relative flex flex-col w-auto">
+            <label class="peer rounded-md px-2 flex items-center gap-3">
+                <input type="checkbox"
+                    class="peer relative w-8 h-8 aspect-square !appearance-none !bg-none checked:!bg-[#5D538E] bg-white border-4 border-[#5D538E] shadow-sm rounded-full !outline-none !text-transparent cursor-pointer transition-all duration-300 ease-in-out after:w-[25%] after:h-[43%] after:absolute after:opacity-0 after:top-[45%] after:left-[50%] after:-translate-x-2/4 after:-translate-y-2/4 after:rotate-[25deg] after:drop-shadow-[1px_0.5px_1px_rgba(56,149,248,0.5)] after:border-r-[0.20em] after:border-r-white after:border-b-[0.20em] after:border-b-white after:transition-all after:duration-200 after:ease-linear checked:after:opacity-100 checked:after:rotate-45">
+                <span
+                    class="select-none text-slate-700 peer-checked:text-slate-400 peer-checked:line-through">Energía</span>            
+            </label>
+            <hr class="absolute top-8 left-[1.4rem] border-2 border-dashed h-10 w-0 border-[#BAB1E5]" />
+        </div>
+
+        <div class="relative flex flex-col w-auto">
+            <label class="peer rounded-md px-2 flex items-center gap-3">
+                <input type="checkbox"
+                    class="peer relative w-8 h-8 aspect-square !appearance-none !bg-none checked:!bg-[#5D538E] bg-white border-4 border-[#5D538E] shadow-sm rounded-full !outline-none !text-transparent cursor-pointer transition-all duration-300 ease-in-out after:w-[25%] after:h-[43%] after:absolute after:opacity-0 after:top-[45%] after:left-[50%] after:-translate-x-2/4 after:-translate-y-2/4 after:rotate-[25deg] after:drop-shadow-[1px_0.5px_1px_rgba(56,149,248,0.5)] after:border-r-[0.20em] after:border-r-white after:border-b-[0.20em] after:border-b-white after:transition-all after:duration-200 after:ease-linear checked:after:opacity-100 checked:after:rotate-45">
+                <span
+                    class="select-none text-slate-700 peer-checked:text-slate-400 peer-checked:line-through">Estrés</span>            
+            </label>
+            <hr class="absolute top-8 left-[1.4rem] border-2 border-dashed h-10 w-0 border-[#BAB1E5]" />
+        </div>
+
+        <div class="relative flex flex-col w-auto">
+            <label class="peer rounded-md px-2 flex items-center gap-3">
+                <input type="checkbox"
+                    class="peer relative w-8 h-8 aspect-square !appearance-none !bg-none checked:!bg-[#5D538E] bg-white border-4 border-[#5D538E] shadow-sm rounded-full !outline-none !text-transparent cursor-pointer transition-all duration-300 ease-in-out after:w-[25%] after:h-[43%] after:absolute after:opacity-0 after:top-[45%] after:left-[50%] after:-translate-x-2/4 after:-translate-y-2/4 after:rotate-[25deg] after:drop-shadow-[1px_0.5px_1px_rgba(56,149,248,0.5)] after:border-r-[0.20em] after:border-r-white after:border-b-[0.20em] after:border-b-white after:transition-all after:duration-200 after:ease-linear checked:after:opacity-100 checked:after:rotate-45">
+                <span
+                    class="select-none text-slate-700 peer-checked:text-slate-400 peer-checked:line-through">Salud muscular</span>            
+            </label>
+            <hr class="absolute top-8 left-[1.4rem] border-2 border-dashed h-10 w-0 border-[#BAB1E5]" />
+        </div>
+
+        <div class="relative flex flex-col w-auto">
+            <label class="peer rounded-md px-2 flex items-center gap-3">
+                <input type="checkbox"
+                    class="peer relative w-8 h-8 aspect-square !appearance-none !bg-none checked:!bg-[#5D538E] bg-white border-4 border-[#5D538E] shadow-sm rounded-full !outline-none !text-transparent cursor-pointer transition-all duration-300 ease-in-out after:w-[25%] after:h-[43%] after:absolute after:opacity-0 after:top-[45%] after:left-[50%] after:-translate-x-2/4 after:-translate-y-2/4 after:rotate-[25deg] after:drop-shadow-[1px_0.5px_1px_rgba(56,149,248,0.5)] after:border-r-[0.20em] after:border-r-white after:border-b-[0.20em] after:border-b-white after:transition-all after:duration-200 after:ease-linear checked:after:opacity-100 checked:after:rotate-45">
+                <span
+                    class="select-none text-slate-700 peer-checked:text-slate-400 peer-checked:line-through">Sistema inmune</span>            
+            </label>
+            <hr class="absolute top-8 left-[1.4rem] border-2 border-dashed h-10 w-0 border-[#BAB1E5]" />
+        </div>
+
+        <div class="relative flex flex-col w-auto">
+            <label class="peer rounded-md px-2 flex items-center gap-3">
+                <input type="checkbox"
+                    class="peer relative w-8 h-8 aspect-square !appearance-none !bg-none checked:!bg-[#5D538E] bg-white border-4 border-[#5D538E] shadow-sm rounded-full !outline-none !text-transparent cursor-pointer transition-all duration-300 ease-in-out after:w-[25%] after:h-[43%] after:absolute after:opacity-0 after:top-[45%] after:left-[50%] after:-translate-x-2/4 after:-translate-y-2/4 after:rotate-[25deg] after:drop-shadow-[1px_0.5px_1px_rgba(56,149,248,0.5)] after:border-r-[0.20em] after:border-r-white after:border-b-[0.20em] after:border-b-white after:transition-all after:duration-200 after:ease-linear checked:after:opacity-100 checked:after:rotate-45">
+                <span
+                    class="select-none text-slate-700 peer-checked:text-slate-400 peer-checked:line-through">Ansiedad</span>            
+            </label>
+        </div>
+    </section>
+
+</body>
+
+</html>
