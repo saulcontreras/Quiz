@@ -1,153 +1,331 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>quiz</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/html-react-parser@latest/dist/html-react-parser.min.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-        rel="stylesheet">
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
     <style type="text/tailwindcss">
-        html {
-            font-family: "Inter", sans-serif;
-            font-optical-sizing: auto;
-        }
+      html {
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+      }
     </style>
-</head>
+  </head>
 
-<body class="container mx-auto flex flex-col gap-7 max-w-96">
+  <body>
+    <div id="root"></div>
 
+    <script type="text/babel">
+      const { useState } = React;
 
+      const questions = [
+        {
+          id: 1,
+          text: `<b className="font-semibold">Esgoje 3 aspectos</b> que <br />
+                quisieras <b className="font-semibold">mejorar</b> sobre tu
+                <br />
+                <b className="font-semibold">salud o estilo</b> de vida:`,
+          minOptionsToContinue: 3,
+          options: [
+            [
+              { id: 1, text: "Energía" },
+              { id: 2, text: "Estrés" },
+              { id: 3, text: "Salud Muscular" },
+              { id: 4, text: "Sistema inmune" },
+              { id: 5, text: "Ansiedad" },
+            ],
+            [
+              { id: 6, text: "Piel" },
+              { id: 7, text: "Pelo" },
+              { id: 8, text: "Calidad de sueño" },
+              { id: 9, text: "Salud articular y ósea" },
+            ],
+          ],
+        },
+        {
+          id: 2,
+          text: `¿Cada cuánto te <br />
+                <b className="font-semibold">enfermas de engripa?</b>`,
+          minOptionsToContinue: 1,
+          options: [
+            [
+              { id: 10, text: "1 a 3 veces al año", state: 0 },
+              { id: 11, text: "3 a 5 veces al año", state: 0 },
+              { id: 12, text: "Más de 6 veces al año", state: 0 },
+            ],
+          ],
+        },
+        {
+          id: 3,
+          text: `¿Te <b className="font-semibold">sientes cansado</b> o con <br />
+                <b className="font-semibold">energía baja</b> durante el día?`,
+          minOptionsToContinue: 1,
+          options: [
+            [
+              { id: 13, text: "Nada", state: 0 },
+              { id: 14, text: "A veces", state: 0 },
+              { id: 15, text: "Siempre", state: 0 },
+            ],
+          ],
+        },
+        {
+          id: 4,
+          text: `¿Sientes la <b className="font-semibold">piel seca</b>, <b className="font-semibold">pelo deshidratado</b> o <b className="font-semibold">uñas frágiles?</b>`,
+          minOptionsToContinue: 1,
+          options: [
+            [
+              { id: 16, text: "Nada", state: 0 },
+              { id: 17, text: "A veces", state: 0 },
+              { id: 18, text: "Siempre", state: 0 },
+            ],
+          ],
+        },
+        {
+          id: 5,
+          text: `¿Sufres de <b className="font-semibold">dolor en las articulaciones</b> después de hacer ejercicio?`,
+          minOptionsToContinue: 1,
+          options: [
+            [
+              { id: 19, text: "Nada", state: 0 },
+              { id: 20, text: "Poco", state: 0 },
+              { id: 21, text: "Mucho", state: 0 },
+            ],
+          ],
+        },
+        {
+          id: 6,
+          text: `¿Te sientes <b className="font-semibold">descansado al despertar?</b>`,
+          minOptionsToContinue: 1,
+          options: [
+            [
+              { id: 22, text: "Si", state: 0 },
+              { id: 23, text: "A veces", state: 0 },
+              { id: 24, text: "No", state: 0 },
+            ],
+          ],
+        },
+        {
+          id: 7,
+          text: `¿Sufres de <b className="font-semibold">estrés</b> y/o <b className="font-semibold">ansiedad?</b>`,
+          minOptionsToContinue: 1,
+          options: [
+            [
+              { id: 25, text: "Si", state: 0 },
+              { id: 26, text: "A veces", state: 0 },
+              { id: 27, text: "No", state: 0 },
+            ],
+          ],
+        },
+        {
+          id: 8,
+          text: `¿Te <b className="font-semibold">cuesta trabajo poner atención</b> o se te <b className="font-semibold">olvidan mucho las cosas?</b>`,
+          minOptionsToContinue: 1,
+          options: [
+            [
+              { id: 28, text: "Nunca", state: 0 },
+              { id: 29, text: "A veces", state: 0 },
+              { id: 30, text: "Siempre", state: 0 },
+            ],
+          ],
+        },
+        {
+          id: 9,
+          text: `¿Pasas mucho tiempo <b className="font-semibold">expuesto al sol?</b>`,
+          minOptionsToContinue: 1,
+          options: [
+            [
+              { id: 31, text: "Nunca", state: 0 },
+              { id: 32, text: "A veces", state: 0 },
+              { id: 33, text: "Siempre", state: 0 },
+            ],
+          ],
+        },
+        {
+          id: 10,
+          text: `¿Cuánto tiempo <b className="font-semibold">tardas en recuperarte</b> cuando <b className="font-semibold">haces ejercicio?</b>`,
+          minOptionsToContinue: 1,
+          options: [
+            [
+              { id: 34, text: "Nunca", state: 0 },
+              { id: 35, text: "A veces", state: 0 },
+              { id: 36, text: "Siempre", state: 0 },
+            ],
+          ],
+        },
+      ];
 
-    <section id="status-bar" class="px-6 w-full mt-3">
-        <div class="flex justify-between mb-3 text-xs text-[#14e086]">
-            <span class="w-full text-left"><b>10%</b> completado</span>
-        </div>
-        <div class="bg-gray-300 h-[2px] w-full rounded-full relative">
-            <span class="bg-[#14e086] h-[16px] w-[16px] absolute top-0 -ml-2 -mt-[7px] z-10 rounded-full cursor-pointer"
-                style="left:10%"></span>
-            <span class="bg-[#14e086] h-[2px] absolute left-0 top-0 rounded-full" style="width:10%"></span>
-        </div>
-    </section>
-
-    <section id="questions" class="w-full flex items-center gap-4">
-        <div class="w-28 h-16 rounded-r-full bg-[#f5b0a5] flex items-center justify-end pr-8">
-            <span class="text-white font-extrabold text-3xl">1</span>
-        </div>
-        <p class="text-[#5d538e] text-base font-light">
-            <b class="font-semibold">Esgoje 3 aspectos</b> que <br />
-            quisieras <b class="font-semibold">mejorar</b> sobre tu <br />
-            <b class="font-semibold">salud o estilo</b> de vida:
-        </p>
-    </section>
-
-
-    <section id="options" class="flex justify-center">
-        <div class="flex flex-col gap-8">
-            <div class="relative flex flex-col w-auto">
-                <label class="peer rounded-md px-3 flex items-center gap-3">
-                    <input type="checkbox"
-                        class="peer relative w-[32px] h-[32px] aspect-square !appearance-none !bg-none checked:!bg-[#5D538E] bg-white border-4 border-[#5D538E] shadow-sm rounded-full !outline-none !text-transparent cursor-pointer transition-all duration-300 ease-in-out after:w-[35%] after:h-[60%] after:absolute after:opacity-0 after:top-[45%] after:left-[50%] after:-translate-x-2/4 after:-translate-y-2/4 after:rotate-[25deg] after:drop-shadow-[1px_0.5px_1px_rgba(56,149,248,0.5)] after:border-r-[0.20em] after:border-r-white after:border-b-[0.20em] after:border-b-white after:transition-all after:duration-200 after:ease-linear checked:after:opacity-100 checked:after:rotate-45">
-                    <span
-                        class="select-none text-[#5D538E] text-sm font-medium w-24 leading-4">Energía</span>
-                </label>
-                <hr class="absolute top-[32px] left-[28px] border-l-2 h-8 w-0 border-dashed border-l-[#BAB1E5]" />
+      function StatusBar(props) {
+        return (
+          <section id="status-bar" className="px-6 w-full mt-3">
+            <div
+              data-percent={props.percent}
+              className="flex justify-between mb-3 text-xs text-[#14e086] data-[percent=0]:text-gray-300"
+            >
+              <span className="w-full text-left">
+                <b>{props.percent}%</b> completado
+              </span>
             </div>
-
-            <div class="relative flex flex-col w-auto">
-                <label class="peer rounded-md px-3 flex items-center gap-3">
-                    <input type="checkbox"
-                        class="peer relative w-[32px] h-[32px] aspect-square !appearance-none !bg-none checked:!bg-[#5D538E] bg-white border-4 border-[#5D538E] shadow-sm rounded-full !outline-none !text-transparent cursor-pointer transition-all duration-300 ease-in-out after:w-[35%] after:h-[60%] after:absolute after:opacity-0 after:top-[45%] after:left-[50%] after:-translate-x-2/4 after:-translate-y-2/4 after:rotate-[25deg] after:drop-shadow-[1px_0.5px_1px_rgba(56,149,248,0.5)] after:border-r-[0.20em] after:border-r-white after:border-b-[0.20em] after:border-b-white after:transition-all after:duration-200 after:ease-linear checked:after:opacity-100 checked:after:rotate-45">
-                    <span
-                        class="select-none text-[#5D538E] text-sm font-medium w-5 leading-4">Estrés</span>
-                </label>
-                <hr class="absolute top-[32px] left-[28px] border-l-2 h-8 w-0 border-dashed border-l-[#BAB1E5]" />
+            <div className="bg-gray-300 h-[2px] w-full rounded-full relative">
+              <span
+                data-percent={props.percent}
+                className="bg-[#14e086] data-[percent=0]:bg-gray-300 h-[16px] w-[16px] absolute top-0 -ml-2 -mt-[7px] z-10 rounded-full cursor-pointer"
+                style={{ left: props.percent + "%" }}
+              ></span>
+              <span
+                data-percent={props.percent}
+                className="bg-[#14e086] data-[percent=0]:bg-gray-300 h-[2px] absolute left-0 top-0 rounded-full"
+                style={{ width: props.percent + "%" }}
+              ></span>
             </div>
+          </section>
+        );
+      }
 
-            <div class="relative flex flex-col w-auto">
-                <label class="peer rounded-md px-3 flex items-center gap-3">
-                    <input type="checkbox"
-                        class="peer relative w-[32px] h-[32px] aspect-square !appearance-none !bg-none checked:!bg-[#5D538E] bg-white border-4 border-[#5D538E] shadow-sm rounded-full !outline-none !text-transparent cursor-pointer transition-all duration-300 ease-in-out after:w-[35%] after:h-[60%] after:absolute after:opacity-0 after:top-[45%] after:left-[50%] after:-translate-x-2/4 after:-translate-y-2/4 after:rotate-[25deg] after:drop-shadow-[1px_0.5px_1px_rgba(56,149,248,0.5)] after:border-r-[0.20em] after:border-r-white after:border-b-[0.20em] after:border-b-white after:transition-all after:duration-200 after:ease-linear checked:after:opacity-100 checked:after:rotate-45">
-                    <span
-                        class="select-none text-[#5D538E] text-sm font-medium w-5 leading-4">Salud Muscular</span>
+      function Question(props) {
+        return (
+          <>
+            <section id="questions" className="w-full flex items-center gap-4">
+              <div className="w-28 h-16 rounded-r-full bg-[#f5b0a5] flex items-center justify-end pr-8">
+                <span className="text-white font-extrabold text-3xl">
+                  {props.question.id}
+                </span>
+              </div>
+              <p className="text-[#5d538e] text-base font-light">
+                {window.HTMLReactParser(props.question.text)}
+              </p>
+            </section>
+            <Options
+              options={props.question.options}
+              handleOptionClick={props.handleOptionQuestionClick}
+            />
+          </>
+        );
+      }
+
+      function Options(props) {
+        const renderCols = () => {
+          const colList = [];
+          for (let index = 0; index < props.options.length; index++) {
+            colList.push(
+              <div key={index} className="flex flex-col gap-8">
+                {renderOptions(props.options[index])}
+              </div>
+            );
+          }
+          return <>{colList}</>;
+        };
+
+        const renderOptions = (opts) => {
+          const optionsList = [];
+
+          for (let index = 0; index < opts.length; index++) {
+            optionsList.push(
+              <div
+                key={opts[index].id}
+                className="relative flex flex-col w-auto"
+              >
+                <label className="peer rounded-md px-3 flex items-center gap-3">
+                  <input
+                    type="checkbox"
+                    onClick={() => props.handleOptionClick(opts[index].id)}
+                    className="peer relative w-[32px] h-[32px] aspect-square !appearance-none !bg-none checked:!bg-[#5D538E] bg-white border-4 border-[#5D538E] shadow-sm rounded-full !outline-none !text-transparent cursor-pointer transition-all duration-300 ease-in-out after:w-[35%] after:h-[60%] after:absolute after:opacity-0 after:top-[45%] after:left-[50%] after:-translate-x-2/4 after:-translate-y-2/4 after:rotate-[25deg] after:drop-shadow-[1px_0.5px_1px_rgba(56,149,248,0.5)] after:border-r-[0.20em] after:border-r-white after:border-b-[0.20em] after:border-b-white after:transition-all after:duration-200 after:ease-linear checked:after:opacity-100 checked:after:rotate-45"
+                  />
+                  <span className="select-none text-[#5D538E] text-sm font-medium w-24 leading-4">
+                    {opts[index].text}
+                  </span>
                 </label>
-                <hr class="absolute top-[32px] left-[28px] border-l-2 h-8 w-0 border-dashed border-l-[#BAB1E5]" />
-            </div>
+                {index !== opts.length - 1 ? (
+                  <hr className="absolute top-[32px] left-[28px] border-l-2 h-8 w-0 border-dashed border-l-[#BAB1E5]" />
+                ) : (
+                  ""
+                )}
+              </div>
+            );
+          }
 
-            <div class="relative flex flex-col w-auto">
-                <label class="peer rounded-md px-3 flex items-center gap-3">
-                    <input type="checkbox"
-                        class="peer relative w-[32px] h-[32px] aspect-square !appearance-none !bg-none checked:!bg-[#5D538E] bg-white border-4 border-[#5D538E] shadow-sm rounded-full !outline-none !text-transparent cursor-pointer transition-all duration-300 ease-in-out after:w-[35%] after:h-[60%] after:absolute after:opacity-0 after:top-[45%] after:left-[50%] after:-translate-x-2/4 after:-translate-y-2/4 after:rotate-[25deg] after:drop-shadow-[1px_0.5px_1px_rgba(56,149,248,0.5)] after:border-r-[0.20em] after:border-r-white after:border-b-[0.20em] after:border-b-white after:transition-all after:duration-200 after:ease-linear checked:after:opacity-100 checked:after:rotate-45">
-                    <span
-                        class="select-none text-[#5D538E] text-sm font-medium w-5 leading-4">Sistema inmune</span>
-                </label>
-                <hr class="absolute top-[32px] left-[28px] border-l-2 h-8 w-0 border-dashed border-l-[#BAB1E5]" />
-            </div>
+          return <>{optionsList}</>;
+        };
 
-            <div class="relative flex flex-col w-auto">
-                <label class="peer rounded-md px-3 flex items-center gap-3">
-                    <input type="checkbox"
-                        class="peer relative w-[32px] h-[32px] aspect-square !appearance-none !bg-none checked:!bg-[#5D538E] bg-white border-4 border-[#5D538E] shadow-sm rounded-full !outline-none !text-transparent cursor-pointer transition-all duration-300 ease-in-out after:w-[35%] after:h-[60%] after:absolute after:opacity-0 after:top-[45%] after:left-[50%] after:-translate-x-2/4 after:-translate-y-2/4 after:rotate-[25deg] after:drop-shadow-[1px_0.5px_1px_rgba(56,149,248,0.5)] after:border-r-[0.20em] after:border-r-white after:border-b-[0.20em] after:border-b-white after:transition-all after:duration-200 after:ease-linear checked:after:opacity-100 checked:after:rotate-45">
-                    <span
-                        class="select-none text-[#5D538E] text-sm font-medium w-5 leading-4">Ansiedad</span>
-                </label>
-            </div>
+        return (
+          <section id="options" className="flex justify-center">
+            {renderCols()}
+          </section>
+        );
+      }
 
-        </div>
+      function Controls(props) {
+        return (
+          <section id="footer" className="w-full flex justify-center">
+            <button
+              className="bg-[#F4D370] px-10 py-2 rounded-full font-semibold text-[#5D538E]"
+              onClick={props.handleNextClick}
+            >
+              Siguiente
+            </button>
+          </section>
+        );
+      }
 
-        <div class="flex flex-col gap-8">
-            <div class="relative flex flex-col w-auto">
-                <label class="peer rounded-md px-3 flex items-center gap-3">
-                    <input type="checkbox"
-                        class="peer relative w-[32px] h-[32px] aspect-square !appearance-none !bg-none checked:!bg-[#5D538E] bg-white border-4 border-[#5D538E] shadow-sm rounded-full !outline-none !text-transparent cursor-pointer transition-all duration-300 ease-in-out after:w-[35%] after:h-[60%] after:absolute after:opacity-0 after:top-[45%] after:left-[50%] after:-translate-x-2/4 after:-translate-y-2/4 after:rotate-[25deg] after:drop-shadow-[1px_0.5px_1px_rgba(56,149,248,0.5)] after:border-r-[0.20em] after:border-r-white after:border-b-[0.20em] after:border-b-white after:transition-all after:duration-200 after:ease-linear checked:after:opacity-100 checked:after:rotate-45">
-                    <span
-                        class="select-none text-[#5D538E] text-sm font-medium w-20 leading-4">Piel</span>
-                </label>
-                <hr class="absolute top-[32px] left-[28px] border-l-2 h-8 w-0 border-dashed border-l-[#BAB1E5]" />
-            </div>
+      function Quiz() {
+        const [quizResponse, setQuizResponse] = useState([]);
+        const [currentQuestion, setCurrentQuestion] = useState(
+          questions.find((question) => question.id === 1)
+        );
 
-            <div class="relative flex flex-col w-auto">
-                <label class="peer rounded-md px-3 flex items-center gap-3">
-                    <input type="checkbox"
-                        class="peer relative w-[32px] h-[32px] aspect-square !appearance-none !bg-none checked:!bg-[#5D538E] bg-white border-4 border-[#5D538E] shadow-sm rounded-full !outline-none !text-transparent cursor-pointer transition-all duration-300 ease-in-out after:w-[35%] after:h-[60%] after:absolute after:opacity-0 after:top-[45%] after:left-[50%] after:-translate-x-2/4 after:-translate-y-2/4 after:rotate-[25deg] after:drop-shadow-[1px_0.5px_1px_rgba(56,149,248,0.5)] after:border-r-[0.20em] after:border-r-white after:border-b-[0.20em] after:border-b-white after:transition-all after:duration-200 after:ease-linear checked:after:opacity-100 checked:after:rotate-45">
-                    <span
-                        class="select-none text-[#5D538E] text-sm font-medium w-5 leading-4">Pelo</span>
-                </label>
-                <hr class="absolute top-[32px] left-[28px] border-l-2 h-8 w-0 border-dashed border-l-[#BAB1E5]" />
-            </div>
+        const getPercent = () => {
+          var value =
+            ((parseInt(currentQuestion.id) - 1) / parseInt(questions.length)) *
+            100;
+          return parseInt(value);
+        };
 
-            <div class="relative flex flex-col w-auto">
-                <label class="peer rounded-md px-3 flex items-center gap-3">
-                    <input type="checkbox"
-                        class="peer relative w-[32px] h-[32px] aspect-square !appearance-none !bg-none checked:!bg-[#5D538E] bg-white border-4 border-[#5D538E] shadow-sm rounded-full !outline-none !text-transparent cursor-pointer transition-all duration-300 ease-in-out after:w-[35%] after:h-[60%] after:absolute after:opacity-0 after:top-[45%] after:left-[50%] after:-translate-x-2/4 after:-translate-y-2/4 after:rotate-[25deg] after:drop-shadow-[1px_0.5px_1px_rgba(56,149,248,0.5)] after:border-r-[0.20em] after:border-r-white after:border-b-[0.20em] after:border-b-white after:transition-all after:duration-200 after:ease-linear checked:after:opacity-100 checked:after:rotate-45">
-                    <span
-                        class="select-none text-[#5D538E] text-sm font-medium w-20 leading-4">Calidad <br> de sueño</span>
-                </label>
-                <hr class="absolute top-[32px] left-[28px] border-l-2 h-8 w-0 border-dashed border-l-[#BAB1E5]" />
-            </div>
+        function handleNextClick() {
+          setCurrentQuestion(
+            questions.find((question) => question.id === currentQuestion.id + 1)
+          );
+        }
 
-            <div class="relative flex flex-col w-auto">
-                <label class="peer rounded-md px-3 flex items-center gap-3">
-                    <input type="checkbox"
-                        class="peer relative w-[32px] h-[32px] aspect-square !appearance-none !bg-none checked:!bg-[#5D538E] bg-white border-4 border-[#5D538E] shadow-sm rounded-full !outline-none !text-transparent cursor-pointer transition-all duration-300 ease-in-out after:w-[35%] after:h-[60%] after:absolute after:opacity-0 after:top-[45%] after:left-[50%] after:-translate-x-2/4 after:-translate-y-2/4 after:rotate-[25deg] after:drop-shadow-[1px_0.5px_1px_rgba(56,149,248,0.5)] after:border-r-[0.20em] after:border-r-white after:border-b-[0.20em] after:border-b-white after:transition-all after:duration-200 after:ease-linear checked:after:opacity-100 checked:after:rotate-45">
-                    <span
-                        class="select-none text-[#5D538E] text-sm font-medium w-28 leading-4">Salud articular <br> y ósea</span>
-                </label>
-            </div>
+        function handleOptionQuestionClick(value) {
+          const index = quizResponse.indexOf(value);
+          if (index > -1) {
+            setQuizResponse(quizResponse.filter((a) => a !== value));
+          } else {
+            setQuizResponse([...quizResponse, value]);
+          }
+        }
 
-        </div>
-        
-    </section>
+        return (
+          <div className="container mx-auto flex flex-col gap-7 max-w-96">
+            <StatusBar percent={getPercent()} />
+            <Question
+              key={currentQuestion.id}
+              question={currentQuestion}
+              handleOptionQuestionClick={handleOptionQuestionClick}
+            />
+            <Controls handleNextClick={handleNextClick} />
+          </div>
+        );
+      }
 
-    <section id="footer" class="w-full flex justify-center">
-        <a class="bg-[#F4D370] px-10 py-2 rounded-full font-semibold text-[#5D538E]" href="">Siguiente</a>
-    </section>
-
-</body>
-
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+      root.render(<Quiz />);
+    </script>
+  </body>
 </html>
